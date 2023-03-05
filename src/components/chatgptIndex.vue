@@ -59,7 +59,7 @@
                 document.getElementById("content").value = "";
                 this.msg = this.$axios({
                     method: "post",
-                    url: "/test",
+                    url: "/getContent",
                     data: {
                         "user": user,
                         "content": content,
