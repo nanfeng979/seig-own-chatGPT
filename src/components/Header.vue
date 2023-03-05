@@ -1,11 +1,21 @@
 <template>
   <div class="header">
     <div class="header-content">
-      <i class="header-icon">C</i>
+      <i class="header-icon" @click="handleSwitchInfo">C</i>
       <span class="header-text">ChatGPT</span>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+
+const emits = defineEmits(['action-switch-show']);
+
+function handleSwitchInfo() {
+  emits('action-switch-show', true);
+}
+
+</script>
 
 <style scoped lang="less">
 .header {
@@ -30,6 +40,7 @@
     border-radius: 50%;
     color: var(--bg-secondary);
     background-color: var(--theme-color);
+    cursor: pointer;
   }
   .header-text {
     font-weight: bold;

@@ -14,8 +14,8 @@ const store = useStore();
 
 const emits = defineEmits(['action-switch-show']);
 
-const user = ref('');
-const key = ref('');
+const user = ref(store.user);
+const key = ref(store.key);
 
 function handleSubmit() {
   store.setKey(key.value);

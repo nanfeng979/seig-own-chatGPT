@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-list" ref="list">
+  <div class="chat-list" ref="listRef">
     <Item v-for="item in list" :item="item" :key="item.id" />
   </div>
 </template>

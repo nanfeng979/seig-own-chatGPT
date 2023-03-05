@@ -6,7 +6,7 @@
       </button>
     </div>
     <div class="form-text">
-      <input type="text" class="text" placeholder="keypress anything here..." :value="text" @keypress.13="handleSubmit">
+      <input type="text" class="text" placeholder="keypress anything here..." v-model="text" @keypress.enter="handleSubmit">
       <button class="btn btn-primary" @click="handleSubmit">
         <IconRight></IconRight>
       </button>
@@ -16,18 +16,58 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useStore } from '../stores';
 import IconClean from './Icon/IconClean.vue';
 import IconRight from './Icon/IconRight.vue';
+
+const store = useStore();
 
 const emits = defineEmits(['action-handle-submit', 'action-handle-clean']);
 
 const text = ref('');
 
+// 是否请求中
+let pending = false;
+
 function handleSubmit() {
+  if (pending) return alert('pending...');
+  pending = true;
+
+  const content = text.value;
+  if (content == '') return alert('text can\' be null');
   text.value = '';
-  emits('action-handle-submit');
+
+  // 插入当前对话内容
+  store.pushItem({
+    type: 'self',
+    text: content
+  }); 
+
+  // 获取回复
+  store.submit(content)
+  .then((result: CallBack) => {
+    if (result.status == 'success') {
+      // 请求成功
+      store.pushItem({
+        type: 'back',
+        text: result.message
+      });
+    } else {
+      // 请求失败
+      store.pushItem({
+        type: 'text',
+        text: result.message
+      });
+    }
+  })
+  .finally(() => {
+    pending = false;
+    emits('action-handle-submit');
+  });
 }
 function handleClean() {
+  // 清空会话记录
+  store.cleanUp();
   emits('action-handle-clean');
 }
 </script>

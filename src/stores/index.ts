@@ -25,7 +25,7 @@ export const useStore = defineStore('global', {
       item.id = nanoid(); // 创建唯一 id
       this.list.push(item);
     },
-    async submit(text: string): Promise<CallBack> {
+    async submit(content: string): Promise<CallBack> {
       // 向服务端请求 chatCPT
       try {
         const { user, key: openai_key } = this;
@@ -36,20 +36,22 @@ export const useStore = defineStore('global', {
             'Content-Type': 'application/json;charset=utf-8'
           },
           body: JSON.stringify({
-            content: text,
-            user, openai_key
+            content, user, openai_key
           })
         });
+
+        // 请求失败
+        if (!response.ok) throw({message: response.statusText});
         
         const result = await response.text();
 
         return {
-          status: 'error',
+          status: 'success',
           message: result
         }
 
       } catch(e) {
-
+        
         return {
           status: 'error',
           message: (e as Error).message
