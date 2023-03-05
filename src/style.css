@@ -1,0 +1,57 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --theme-color: rgba(93 92 222 / 100%);
+  --theme-color-opacity: rgba(93 92 222 / 50%);
+  --bg-primary: rgba(255 255 255 / 100%);
+  --bg-secondary: rgba(255 255 255 / 50%);
+  --text-primary: rgba(0 0 0 / 100%);
+  --text-secondary: rgba(0 0 0 / 50%);
+  --border-primary: rgba(0 0 0 / 10%);
+  --border-secondary: rgba(0 0 0 / 6%);
+  --border-tertiary: rgba(0 0 0 / 4%);
+  --shadow: rgba(0 0 0 / 10%);
+  --highlight: rgba(255 255 255 / 100%);
+}
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+a {
+  font-weight: 500;
+  color: var(--theme-color);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--theme-color-opacity);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: 100vw;
+  max-width: 800px;
+  height: 100vh;
+  max-height: 800px;
+  color: var(--text-primary);
+  border: 1px solid var(--border-secondary);
+  /*box-shadow: 0 5px 10px var(--shadow);*/
+  background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
