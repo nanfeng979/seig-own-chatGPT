@@ -38,7 +38,7 @@ function setListRef(value: HTMLDivElement) {
 </script>
 
 <template>
-  <Header></Header>
+  <Header @action-switch-show="handleSwitchInfoSubmit"></Header>
   <List :list="chatList" @action-set-list-ref="setListRef" />
   <Form></Form>
 
